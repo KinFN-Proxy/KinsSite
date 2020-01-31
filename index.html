@@ -11,15 +11,96 @@
 		</h1>
 	</center>
 </div>
+<center>
+<t1>Bored? Click the Fidget Button!</t1>
+</center>
 
-<t1>Bored? Play the snake game!</t1>
+<div>
+<style>
+	* {
+	box-sizing: border-box;
+}
+
+body{
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+}
+
+div {
+	width: 800px;
+	height: 300px;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+button {
+	font-family: Roboto, sans serif;
+	font-size: 45px;
+	padding: 10px 30px;
+	background-color: white;
+	border: none;
+	font-weight: bold;
+}
+
+button:hover {
+	cursor: pointer;
+}
+
+#button-1 {
+	border-radius: 5px;
+	background-color: #1500FF;
+	color: white;
+	box-shadow: 5px 5px 0 0 #1000BF, 10px 10px 0 0 #0B007F;
+	position: relative;
+	top: -5px;
+	left: -5px;
+	transition: .3s;
+}
+
+#button-1:hover {
+	top: -9px;
+	left: -9px;
+	box-shadow: 7px 7px 0 0 #1000BF, 14px 14px 0 0 #0B007F;
+	outline: none;
+}
+
+#button-1:active {
+	top: 5px;
+	left: 5px;
+	box-shadow: 0 0 0 0 #1000BF, 0 0 0 0 #0B007F;
+	outline: none;
+}
+
+#button-1:focus {
+	outline: none;
+}
+	</style>
+	
+	<button id="button-1">Fidget Button</button>
+</div>
+
+
+<style>
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
+}
+</style>
 
 <div class="footer">
-	<center>
   <p>
-<html>
-
-   <body>
+   
+<body>
       <button onclick="window.location.href = 'https://www.youtube.com/channel/UCatDcR2jNRxyLCJs7JeUvQw';">My Youtube</button>
    </body>
 </html>
@@ -31,7 +112,5 @@
    <body>
       <button onclick="window.location.href = 'https://kinthedev.ga';">My Discord</button>
    </body>
-</html>
   </p>
-	</center>
 </div>
