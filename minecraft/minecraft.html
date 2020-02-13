@@ -1,0 +1,311 @@
+- var rand = function(num) {
+-  return Math.floor(Math.random() * (0 - num) + num);
+- }
+
+#wrapper(style='display:grid')
+  #block
+    .face.right
+      - for (var i = 0; i < 100; ++i) {
+        .pixel(class='dirt-' + rand(4))
+      - }
+      .side
+        .inner
+          - for (var i = 0; i < 20; ++i) {
+            .pixel(class='grass-' + rand(4))(class='side-' + rand(3))(class='grass-' + rand(4))
+          - }
+          - for (var i = 0; i < 20; ++i) {
+            .pixel(class='grass-' + rand(4))(class='side-' + rand(4))(class='grass-' + rand(4))
+          - }
+    .face.left
+      - for (var i = 0; i < 100; ++i) {
+        .pixel(class='dirt-' + rand(4))
+      - }
+      .side
+        .inner
+          - for (var i = 0; i < 20; ++i) {
+            .pixel(class='grass-' + rand(4))(class='side-' + rand(3))(class='grass-' + rand(4))
+          - }
+          - for (var i = 0; i < 20; ++i) {
+            .pixel(class='grass-' + rand(4))(class='side-' + rand(4))(class='grass-' + rand(4))
+          - }
+    .face.top
+      - for (var i = 0; i < 100; ++i) {
+        .pixel(class='grass-' + rand(4))(class='lvl-' + rand(3))
+      - }
+
+
+<style>
+$dirt-1: #bb8658;
+$dirt-2: #9b6b46;
+$dirt-3: #B57D4F;
+$dirt-4: #8C5A3C;
+
+$grass-1: #016a0d;
+$grass-2: #047e0f;
+$grass-3: #08a718;
+$grass-4: #068f12;
+
+$bg: #73A7B7;
+$bg2: #45899F;
+
+#wrapper{
+  overflow:hidden;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(180deg, darken($bg, 0%) 0%, darken($bg, 0%) 25%, darken($bg2, 0%) 75%, darken($bg2, 0%) 100%);
+}
+
+@mixin grassColor($prop, $val) {
+  #{$prop} {
+    background: linear-gradient(90deg,  darken( $val, 5%) 0%, $val 100%);
+    &:before{
+      background: linear-gradient(90deg,  darken( $val, 10%) 0%, darken($val, 15%) 100%);
+    }
+    &:after{
+      background: linear-gradient(90deg,  darken( $val, 10%) 0%, darken($val, 15%) 100%);
+    }
+  }
+}
+
+@mixin dirtColor($prop, $val) {
+  .pixel {
+    width: 10%;
+    height: 10%;
+    float: left;
+    &#{$prop} {
+      background: linear-gradient(90deg, darken( $val, 0%) 0%, darken($val, 5%) 100%);
+    }
+  }
+}
+
+#block{
+  position: relative;
+  width:50vh;
+  height:50vh;
+  margin: 10vh auto 0 auto;
+  animation: drift;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+.right .inner{
+  background-color: rgba(0,0,0,0.5);
+  .side-0 {
+    transform: translate(70%, 70%);
+    &:before{
+      width: 100%;
+      height: 69%;
+      transform: skew(48deg, 0deg) translate(35%, -99%);
+    }
+    &:after{
+      width: 76%;
+      height: 100%;
+      transform: skew(0deg, 42deg) translate(-99%, -36%);
+    }
+  }
+  .side-1 {
+    transform: translate(35%, 35%);
+    &:before{
+      width: 100%;
+      height: 69%;
+      transform: skew(48deg, 0deg) translate(35%, -99%);
+    }
+    &:after{
+      width: 36%;
+      height: 100%;
+      transform: skew(0deg, 42deg) translate(-99%, -50%);
+    }
+  }
+  .side-2 {
+    transform: translate(0%, 0%);
+    &:before, &:after{
+      display: none;
+    }
+  }
+  .side-3 {
+    opacity: 0;
+    &:before, &:after{
+      display:none;
+    }
+  }
+}
+
+
+.left .inner{
+  .side-0 {
+    transform: translate(-70%, 70%);
+    &:before{
+      width: 100%;
+      height: 69%;
+      transform: skew(-48deg, 0deg) translate(-35%, -99%);
+    }
+    &:after{
+      width: 76%;
+      height: 100%;
+      transform: skew(0deg, -42deg) translate(133%, -15%);
+    }
+  }
+  .side-1 {
+    transform: translate(-35%, 35%);
+    &:before{
+      width: 100%;
+      height: 69%;
+      transform: skew(-48deg, 0deg) translate(-35%, -99%);
+    }
+    &:after{
+      width: 76%;
+      height: 100%;
+      transform: skew(0deg, -42deg) translate(133%, -15%);
+    }
+  }
+  .side-2 {
+    transform: translate(0%, 0%);
+    &:before, &:after{
+      display: none;
+    }
+  }
+  .side-3 {
+    opacity: 0;
+    &:before, &:after{
+      display:none;
+    }
+  }
+}
+
+
+.face{
+  width: 50%;
+  height: 50%;
+  position: absolute;
+  background-color: darken($dirt-4, 10%);
+  .side{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    .inner{
+      width: 100%;
+      height: 100%;
+      position: relative;
+      .pixel{
+        position: relative;
+        &:before, &:after{
+          content:'';
+          display: block;
+        }
+      }
+    }
+  }
+  
+  &.top{
+    background-color: darken($grass-4, 20%);
+    width: 52%;
+    height: 52%;
+    transform: rotate(135deg) skew(20deg, 20deg);
+    left: 24%;
+    top: 12.4%;
+    &:after{
+      content:'';
+      display: block;
+      width: 100%;
+      height: 100%;
+      transform: translate(190%, -190%);
+      position: absolute;
+      background-color: rgba(0,0,0,0.4);
+      filter: blur(20px);
+      animation: shadow;
+      animation-duration: 1.5s;
+      border-radius:20%;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+      animation-timing-function: ease-in-out;
+    }
+    .pixel{
+      width: 10%;
+      height: 10%;
+      position: relative;
+      &:before, &:after{
+        content:'';
+      }
+      &.lvl-0{
+        &:before, &:after{
+          display: none;
+        }
+      }
+      &.lvl-1{
+        transform: translate(-70%, 70%);
+        &:before{
+          display: block;
+          width: 70%;
+          height: 107.9%;
+          transform: rotate(45deg) skew(0deg, -45deg) translate(-38%, -120%);
+        }
+        &:after{
+          display: block;
+          width: 112%;
+          height: 69%;
+          transform: rotate(-45deg) skew(-45deg, 0deg) translate(105%, -50%);
+        }
+      }
+      &.lvl-2{
+        transform: translate(-40%, 40%);
+        &:before{
+          display: block;
+          width: 70%;
+          height: 58%;
+          transform: rotate(45deg) skew(0deg, -45deg) translate(-13%, -118%);
+        }
+        &:after{
+          display: block;
+          width: 58%;
+          height: 70%;
+          transform: rotate(-45deg) skew(-45deg, 0deg) translate(222%, 33%);
+          bottom: 0;
+          left: 0;
+        }
+      }
+    }
+  }
+  &.left{
+    transform: rotate(0deg) skew(0deg, 25deg);
+    left: 0;
+    bottom: 0;
+  }
+  &.right{
+    transform: rotate(0deg) skew(0deg, -25deg);
+    right: 0;
+    bottom: 0;
+  }
+}
+
+
+@include dirtColor('.dirt-0', $dirt-1);
+@include dirtColor('.dirt-1', $dirt-2);
+@include dirtColor('.dirt-2', $dirt-3);
+@include dirtColor('.dirt-3', $dirt-4);
+
+@include grassColor('.grass-0', $grass-1);
+@include grassColor('.grass-1', $grass-2);
+@include grassColor('.grass-2', $grass-3);
+@include grassColor('.grass-3', $grass-4);
+
+@keyframes drift {
+  from {
+    transform: translateY(-6%);
+  }
+
+  to {
+    transform: translateY(6%);
+  }
+}
+
+@keyframes shadow {
+  from {
+    transform: translate(240%, -240%) scale(0.6);
+  }
+
+  to {
+    transform: translate(205%, -205%) scale(0.8);
+  }
+}
+</style>
